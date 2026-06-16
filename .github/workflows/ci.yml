@@ -1,40 +1,52 @@
-name: CI — Testes Automáticos
+﻿name: Testes Automatizados — Aula 2
 
 on:
   push:
-    branches: ["main", "develop"]
+    branches: [ main, develop ]
   pull_request:
-    branches: ["main"]
+    branches: [ main, develop ]
 
 jobs:
   test:
-    name: Executar Testes — Aula 2
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.12']
 
     steps:
-      - name: Checkout do código
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
-      - name: Configurar Python 3.12
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'pip'
 
-      - name: Instalar pip e dependências
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
-      - name: Testes de Integração
-        run: pytest tests/test_integration.py -v
+    - name: Testes de Validação (Errors)
+      run: pytest tests/test_errors.py -v --tb=short
 
-      - name: Testes com Mock
-        run: pytest tests/test_mocks.py -v
+    - name: Testes de Integração
+      run: pytest tests/test_integration.py -v --tb=short
 
-      - name: Testes de Erro
-        run: pytest tests/test_errors.py -v
+    - name: Testes com Mock (API Externa)
+      run: pytest tests/test_mocks.py -v --tb=short
 
-      - name: Suite Completa com Cobertura
-        run: |
-          pip install pytest-cov
-          pytest --cov=app --cov-report=term-missing -v
+    - name: Run all tests with coverage
+      run: |
+        pytest --cov=app --cov-report=xml --cov-report=term --tb=short
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        files: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
