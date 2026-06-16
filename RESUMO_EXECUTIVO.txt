@@ -1,0 +1,93 @@
+╔═══════════════════════════════════════════════════════════════╗
+║         API BUSCA - AULA 2 (Versão Completa)                 ║
+║    Banco de Dados, Testes de Integração e Mocks             ║
+╚═══════════════════════════════════════════════════════════════╝
+
+📍 LOCALIZAÇÃO
+  C:\Users\muril\api-busca-02\
+
+🚀 COMO RODAR
+
+  1. Ativar venv:
+     .venv\Scripts\activate.ps1
+
+  2. Rodar testes:
+     pytest -v
+
+  3. Rodar API:
+     uvicorn app.main:app --reload
+     → http://localhost:8000/docs
+
+📊 TESTES (14 total)
+
+  ✅ 7 testes de erro        (validação Pydantic + status codes)
+  ✅ 5 testes de integração  (CRUD com SQLite real)
+  ✅ 2 testes de mock        (API externa simulada)
+
+📦 ARQUIVOS CHAVE
+
+  app/main.py              → 5 endpoints + BD
+  app/database.py          → SQLAlchemy + SQLite
+  app/external_service.py  → API externa (mockada nos testes)
+
+  tests/conftest.py        → Fixtures (BD de teste em memória)
+  tests/test_errors.py     → 7 testes de validação
+  tests/test_integration.py → 5 testes com BD real
+  tests/test_mocks.py      → 2 testes com mock
+
+📚 DOCUMENTAÇÃO
+
+  GUIA_APRESENTACAO.md  → Como apresentar para o professor
+  CENARIOS_TESTADOS.md  → Detalhe de cada teste
+  README.md             → Instruções básicas
+
+🔄 PIPELINE CI
+
+  .github/workflows/ci.yml → Executa testes automaticamente no GitHub
+
+💡 PRINCIPAIS INCREMENTOS vs AULA 1
+
+  ✓ Banco de dados real (SQLAlchemy + SQLite)
+  ✓ Testes de integração (5 testes)
+  ✓ Testes de erro/cenários de falha (7 testes)
+  ✓ Mocks de API externa (2 testes)
+  ✓ Status codes HTTP corretos (404, 422, 503)
+  ✓ Pipeline CI automático
+
+⏱️ APRESENTAÇÃO RECOMENDADA (15 minutos)
+
+  0-2 min   → Estrutura + arquitetura
+  2-6 min   → Rodar testes (14 passando)
+  6-8 min   → Explicar 3 testes diferentes
+  8-12 min  → Rodar API + testar no Swagger
+  12-13 min → Mostrar CI + documentação
+  13-15 min → Responder perguntas
+
+🎓 ENTREGÁVEIS PARA PROFESSOR
+
+  ✅ Repositório criado (C:\Users\muril\api-busca-02)
+  ✅ Aplicação FastAPI funcionando
+  ✅ 14 testes automatizados (todos passando)
+  ✅ Testes de integração com banco real
+  ✅ Mocks de API externa
+  ✅ Cenários de falha testados
+  ✅ Pipeline CI configurado
+  ✅ Documentação completa
+
+📝 COMO APRESENTAR
+
+  1. Abra GUIA_APRESENTACAO.md
+  2. Siga o roteiro passo a passo
+  3. Execute os comandos conforme indicado
+  4. Mostre as saídas dos testes
+  5. Teste na API via Swagger UI
+
+═══════════════════════════════════════════════════════════════
+
+Você tem um projeto pronto para apresentação! 🎉
+
+Próximas aulas podem incluir:
+  • Autenticação/autorização
+  • Paginação
+  • Cache
+  • Deploy em produção
